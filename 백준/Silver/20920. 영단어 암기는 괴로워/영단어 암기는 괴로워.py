@@ -1,10 +1,12 @@
-from collections import Counter
 N,M=map(int, input().split())
-A=[]
+D=dict()
 for _ in range(N):
   s=input()
-  if len(s) >= M:
-    A.append(s)
-C = Counter(A)
-res=sorted(C.keys(), key=lambda x: (-C[x], -(len(x)), x))
+  if len(s) < M:
+    continue
+  if D.get(s):
+    D[s] += 1
+  else:
+    D[s] = 1
+res=sorted(D.keys(), key=lambda x: (-D[x], -(len(x)), x))
 print('\n'.join(res))
