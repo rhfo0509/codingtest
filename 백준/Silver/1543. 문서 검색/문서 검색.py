@@ -1,3 +1,3 @@
 s=input()
 w=input()
-print((len(s)-len(''.join(s.split(w))))//len(w))
+print(s.count(w))
