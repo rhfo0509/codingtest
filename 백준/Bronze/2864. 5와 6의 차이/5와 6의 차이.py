@@ -1,0 +1,8 @@
+a,b=input().split()
+min_a=a.replace('6', '5')
+min_b=b.replace('6', '5')
+min_sum=int(min_a)+int(min_b)
+max_a=a.replace('5', '6')
+max_b=b.replace('5', '6')
+max_sum=int(max_a)+int(max_b)
+print(min_sum,max_sum)
