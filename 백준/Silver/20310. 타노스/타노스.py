@@ -15,6 +15,7 @@ while c1:
   if S[j] == 1:
     del S[j]
     c1 -= 1
+    j -= 1
   j += 1
 
 print(''.join(map(str, S)))
