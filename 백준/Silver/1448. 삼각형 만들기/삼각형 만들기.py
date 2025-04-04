@@ -15,8 +15,9 @@ edges.sort()
 # 세 변의 길이의 합의 최댓값
 result = -1
 
-for i in range(N - 2):
-  if edges[i] + edges[i + 1] > edges[i + 2]:
-    result = sum(edges[i : i + 3])
+for i in range(N - 1, 1, -1):
+  if edges[i] < edges[i - 1] + edges[i - 2]:
+    result = sum(edges[i - 2 : i + 1])
+    break
 
 print(result)
