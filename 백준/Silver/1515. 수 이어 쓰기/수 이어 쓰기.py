@@ -1,9 +1,9 @@
 s=input()
 N=1
-idx=0
-while idx<len(s):
+i=0
+while i<len(s):
   for n in str(N):
-    if idx<len(s) and s[idx]==n:
-      idx+=1
+    if i<len(s) and s[i]==n:
+      i+=1
   N+=1
 print(N-1)
