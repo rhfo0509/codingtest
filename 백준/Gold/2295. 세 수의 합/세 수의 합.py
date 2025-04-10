@@ -12,20 +12,23 @@ for x in range(N):
     A.append(U[x]+U[y])
 A.sort()
 
-i=0
-for z in range(N):
-  for k in range(z,N):
+i=-1
+for k in range(N-1,-1,-1):
+  for z in range(k+1):
     target=U[k]-U[z]
     start,end=0,len(A)-1
     while start<=end:
       mid=(start+end)//2
       if A[mid]==target:
+        i=k
         break
       elif A[mid]<target:
         start=mid+1
       else:
         end=mid-1
-    if start<=end:
-      i=max(i,k)
+    if i!=-1:
+      break
+  if i!=-1:
+    break
 
 print(U[i])
