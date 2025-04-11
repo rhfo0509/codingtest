@@ -1,15 +1,10 @@
 N,M=map(int,input().split())
 L=list(map(int,input().split()))
-L.sort(reverse=True)
-start,end=0,int(1e9)
+start,end=0,max(L)
 res=0
 while start<=end:
   mid=(start+end)//2
-  cnt=0
-  for l in L:
-    if l-mid<=0 or cnt>=M:
-      break
-    cnt+=l-mid
+  cnt=sum(l-mid for l in L if l>mid)
   if cnt>=M:
     res=mid
     start=mid+1
