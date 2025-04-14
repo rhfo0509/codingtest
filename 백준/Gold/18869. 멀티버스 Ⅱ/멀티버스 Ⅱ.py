@@ -1,12 +1,13 @@
-import bisect
 M,N=map(int,input().split())
 space=dict()
 for _ in range(M):
+  D=dict()
   li=list(map(int,input().split()))
-  s=sorted(li)
+  S=sorted(li)
   for i in range(N):
-    # lower_bound
-    li[i]=bisect.bisect_left(s,li[i])
+    D[S[i]]=i
+  for i in range(N):
+    li[i]=D.get(li[i])
   space[tuple(li)]=space.get(tuple(li),0)+1
 cnt=0
 for v in space.values():
