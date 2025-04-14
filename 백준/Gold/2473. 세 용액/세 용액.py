@@ -4,23 +4,16 @@ li.sort()
 min_sum=int(3e9)
 res=None
 
-# 이진 탐색: N^2 logN
+# 투 포인터: N^2
 for i in range(N-2):
-  for j in range(i+1,N-1):
-    start,end=j+1,N-1
-    while start<end:
-      mid=(start+end)//2
-      if li[i]+li[j]+li[mid]<=0:
-        start=mid+1
-      else:
-        end=mid-1
-    tmp=[start]
-    if start-1>j:
-      tmp.append(start-1)
-    if start+1<N:
-      tmp.append(start+1)
-    for k in tmp:
-      if abs(li[i]+li[j]+li[k])<min_sum:
-        min_sum=abs(li[i]+li[j]+li[k])
-        res=[li[i],li[j],li[k]]
+  j,k=i+1,N-1
+  while j<k:
+    cur_sum=li[i]+li[j]+li[k]
+    if abs(cur_sum)<min_sum:
+      min_sum=abs(cur_sum)
+      res=[li[i],li[j],li[k]]
+    if cur_sum>0:
+      k-=1
+    else:
+      j+=1
 print(*res)
