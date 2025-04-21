@@ -1,12 +1,15 @@
 T=int(input())
+dp=[[0]*15 for _ in range(15)]
+# 초깃값 설정
+for i in range(15):
+  dp[i][1]=1
+  dp[0][i]=i
+for i in range(1,15):
+  for j in range(2,15):
+    dp[i][j]=dp[i-1][j]+dp[i][j-1]
+
 for _ in range(T):
   # k층 n호
   k=int(input())
   n=int(input())
-  dp=[[0]*(n+1) for _ in range(k+1)]
-  # 초깃값 설정
-  dp[0]=[i for i in range(0, n+1)]
-  for i in range(1,k+1):
-    for j in range(1,n+1):
-      dp[i][j]=sum(dp[i-1][:j+1])
-  print(dp[i][j])
+  print(dp[k][n])
