@@ -1,11 +1,11 @@
 def f(n,x,y):
-  if n==1:
-    return
   k=0
   for i in range(x+n//2, x+n):
     for j in range(y-n//2+k+1, y+n//2-k):
       li[i][j]=' '
     k+=1
+  if n==3:
+    return
   f(n//2,x,y)
   f(n//2,x+n//2,y-n//2)
   f(n//2,x+n//2,y+n//2)
