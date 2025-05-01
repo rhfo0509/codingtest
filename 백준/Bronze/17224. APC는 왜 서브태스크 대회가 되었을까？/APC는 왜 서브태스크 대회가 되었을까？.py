@@ -1,33 +1,22 @@
-n, l, k = map(int, input().split())
-
-a = []
-for _ in range(n):
-  a.append(tuple(map(int, input().split())))
-
-score = 0
-
-a.sort(key=lambda x: x[1])
-
-idx = 0
-for i in a:
-  if i[1] <= l:
-    idx += 1
-    score += 140
-    k -= 1
-    if k == 0:
-      break
-  else:
+N,L,K=map(int,input().split())
+li=[tuple(map(int,input().split())) for _ in range(N)]
+li.sort(key=lambda x: (x[1],x[0]))
+cnt=0
+score=0
+s=set()
+for i in range(N):
+  if cnt==K:
     break
-
-if k > 0:
-  a = a[idx:]
-  a.sort(key=lambda x: -x[0])
-
-  for j in a:
-    if j[0] <= l:
-      score += 100
-      k -= 1
-      if k == 0:
-        break
-
+  if li[i][1]<=L:
+    score+=140
+    cnt+=1
+    s.add(i)
+for i in range(N):
+  if cnt==K:
+    break
+  if i in s:
+    continue
+  if li[i][0]<=L:
+    score+=100
+    cnt+=1
 print(score)
