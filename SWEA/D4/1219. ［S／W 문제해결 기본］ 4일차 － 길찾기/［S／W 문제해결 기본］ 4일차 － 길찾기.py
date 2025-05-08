@@ -6,8 +6,6 @@ for _ in range(T):
 
   data1 = [-1] * 100
   data2 = [-1] * 100
-  visited1 = [False] * 100
-  visited2 = [False] * 100
 
   for i in range(0, M * 2, 2):
     start, end = li[i], li[i + 1]
@@ -18,20 +16,19 @@ for _ in range(T):
 
   result = 0
 
-  # bfs
-  q = deque([0])
-
-  while q:
-    node = q.popleft()
-
+  # dfs
+  def dfs(node):
+    global result
     if node == 99:
       result = 1
-      break
-
+      return
+    if data1[node] == -1 and data2[node] == -1:
+      return
     if data1[node] != -1:
-      q.append(data1[node])
-
+      dfs(data1[node])
     if data2[node] != -1:
-      q.append(data2[node])
+      dfs(data2[node])
+
+  dfs(0)
 
   print(f'#{N} {result}')
