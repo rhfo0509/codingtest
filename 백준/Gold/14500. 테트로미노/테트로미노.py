@@ -49,16 +49,16 @@ def dfs(x, y):
     used[x - 1][y] = False
     li.pop()
 
-tm1 = [(0, 1), (1, 0), (1, 1), (1, 2)]
-tm2 = [(0, 0), (0, 1), (0, 2), (1, 1)]
-tm3 = [(0, 0), (1, 0), (1, 1), (2, 0)]
-tm4 = [(0, 1), (1, 0), (1, 1), (2, 1)]
-tm5 = [(0, 0), (0, 1), (1, 0), (2, 0)]
-tm6 = [(0, 0), (0, 1), (0, 2), (1, 0)]
+tm = [
+  [(0, 1), (1, 0), (1, 1), (1, 2)],
+  [(0, 0), (0, 1), (0, 2), (1, 1)],
+  [(0, 0), (1, 0), (1, 1), (2, 0)],
+  [(0, 1), (1, 0), (1, 1), (2, 1)],
+]
 
-def check(i, j, tm):
+def check(i, j, t):
   tmp = 0
-  for pos in tm:
+  for pos in t:
     x, y = pos
     if i + x >= N or j + y >= M:
       return 0
@@ -68,12 +68,8 @@ def check(i, j, tm):
 
 for i in range(N):
   for j in range(M):
-    result = max(result, check(i, j, tm1))
-    result = max(result, check(i, j, tm2))
-    result = max(result, check(i, j, tm3))
-    result = max(result, check(i, j, tm4))
-    result = max(result, check(i, j, tm5))
-    result = max(result, check(i, j, tm6))
+    for t in tm:
+      result = max(result, check(i, j, t))
 
 for i in range(N):
   for j in range(M):
