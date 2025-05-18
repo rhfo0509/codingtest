@@ -43,15 +43,10 @@ while time <= 100:
     operate(A, row, col)
   else:
     # 리스트를 A[c][r] 형태로 변경
-    col_A = []
-    for i in range(col):
-      col_A.append([A[j][i] for j in range(row)])
-    operate(col_A, col, row)
-
+    A = list(map(list, zip(*A)))
+    operate(A, col, row)
     # 다시 A[r][c] 형태로 변경
-    A = []
-    for i in range(len(col_A[0])):
-      A.append([col_A[j][i] for j in range(len(col_A))])
+    A = list(map(list, zip(*A)))
   
   time += 1
 
