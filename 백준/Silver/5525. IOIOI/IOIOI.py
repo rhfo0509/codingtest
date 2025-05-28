@@ -1,14 +1,24 @@
-N=int(input())
-M=int(input())
-S=input()
+N = int(input())
+M = int(input())
+S = input()
+P = 'IO' * N + 'I'
 
-P="IO"*N+"I"
-i=0
-cnt=0
-while i<len(S):
-  idx=S.find(P, i)
-  if idx==-1:
-    break
-  cnt+=1
-  i=idx+2
-print(cnt)
+result = 0
+i = 0
+count = 0
+for C in S:
+  if C == P[i]:
+    i += 1
+    count += 1
+    if count == len(P):
+      result += 1
+      count -= 2
+      i = 1
+  else:
+    if C == 'I':
+      count = 1
+      i = 1
+    else:
+      count = 0
+      i = 0
+print(result)
