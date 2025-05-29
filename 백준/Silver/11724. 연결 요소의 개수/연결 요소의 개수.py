@@ -1,21 +1,20 @@
 import sys
-sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 N, M = map(int, input().split())
-G = [[] for _ in range(N + 1)]
+parent = [i for i in range(N + 1)]
+def find(x):
+  if x != parent[x]:
+    parent[x] = find(parent[x])
+  return parent[x]
+def union(a, b):
+  a = find(a)
+  b = find(b)
+  if a != b:
+    if a < b: parent[b] = a
+    else: parent[a] = b
 for _ in range(M):
   u, v = map(int, input().split())
-  G[u].append(v)
-  G[v].append(u)
-visited = [False] * (N + 1)
-def dfs(n):
-  visited[n] = True
-  for m in G[n]:
-    if not visited[m]:
-      dfs(m)
-result = 0
+  union(u, v)
 for i in range(1, N + 1):
-  if not visited[i]:
-    dfs(i)
-    result += 1
-print(result)
+  find(i)
+print(len(set(parent[1:])))
