@@ -1,4 +1,6 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 N,M,V=map(int,input().split())
 G=[[] for _ in range(N+1)]
 visited=[False]*(N+1)
