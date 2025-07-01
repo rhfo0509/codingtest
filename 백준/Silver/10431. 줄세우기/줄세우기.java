@@ -11,17 +11,16 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int T = Integer.parseInt(st.nextToken());
             int[] arr = new int[20];
-            for (int j = 0; j < 20; j++) {
-                arr[j] = Integer.parseInt(st.nextToken());
-            }
             int result = 0;
             for (int j = 0; j < 20; j++) {
-                int curNum = arr[j];
-                for (int k = j - 1; k >= 0; k--) {
-                    if (arr[k] > curNum) {
-                        result += 1;
-                    }
+                int pos = j;
+                int num = Integer.parseInt(st.nextToken());
+                while (pos > 0 && arr[pos - 1] > num) {
+                    arr[pos] = arr[pos - 1];
+                    pos -= 1;
+                    result += 1;
                 }
+                arr[pos] = num;
             }
             System.out.println(T + " " + result);
         }
