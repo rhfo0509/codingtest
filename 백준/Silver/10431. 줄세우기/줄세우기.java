@@ -1,15 +1,18 @@
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int P = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int P = Integer.parseInt(br.readLine());
         for (int i = 0; i < P; i++) {
-            int T = sc.nextInt();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int T = Integer.parseInt(st.nextToken());
             int[] arr = new int[20];
             for (int j = 0; j < 20; j++) {
-                arr[j] = sc.nextInt();
+                arr[j] = Integer.parseInt(st.nextToken());
             }
             int result = 0;
             for (int j = 0; j < 20; j++) {
