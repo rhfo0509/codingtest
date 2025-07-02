@@ -16,18 +16,16 @@ public class Main {
             } else if (cmd[0].equals("push_back")) {
                 dq.offer(Integer.parseInt(cmd[1]));
             } else if (cmd[0].equals("pop_front")) {
-                Integer num = dq.poll();
-                if (num == null) {
+                if (dq.isEmpty()) {
                     System.out.println(-1);
                 } else {
-                    System.out.println(num);
+                    System.out.println(dq.poll());
                 }
             } else if (cmd[0].equals("pop_back")) {
-                Integer num = dq.pollLast();
-                if (num == null) {
+                if (dq.isEmpty()) {
                     System.out.println(-1);
                 } else {
-                    System.out.println(num);
+                    System.out.println(dq.pollLast());
                 }
             } else if (cmd[0].equals("size")) {
                 System.out.println(dq.size());
@@ -38,18 +36,16 @@ public class Main {
                     System.out.println(0);
                 }
             } else if (cmd[0].equals("front")) {
-                Integer num = dq.peek();
-                if (num == null) {
+                if (dq.isEmpty()) {
                     System.out.println(-1);
                 } else {
-                    System.out.println(num);
+                    System.out.println(dq.peek());
                 }
             } else if (cmd[0].equals("back")) {
-                Integer num = dq.peekLast();
-                if (num == null) {
+                if (dq.isEmpty()) {
                     System.out.println(-1);
                 } else {
-                    System.out.println(num);
+                    System.out.println(dq.peekLast());
                 }
             }
         }
