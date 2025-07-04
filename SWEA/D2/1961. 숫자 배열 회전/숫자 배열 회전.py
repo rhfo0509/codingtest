@@ -1,23 +1,50 @@
-T = int(input())
+import java.io.*;
+import java.util.*;
 
-for tc in range(1, T + 1):
-  N = int(input())
-  data = [list(map(int, input().split())) for _ in range(N)]
+public class Solution {
+    static int N;
+    static int[][] A;
+    static ArrayList<ArrayList<String>> result;
+    public static int[][] turn() {
+        int[][] newArr = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            StringBuilder sb = new StringBuilder("");
+            for (int j = 0; j < N; j++) {
+                newArr[i][j] = A[N - j - 1][i];
+                sb.append(newArr[i][j]);
+            }
+            result.get(i).add(sb.toString());
+        }
+        return newArr;
+    }
 
-  print(f'#{tc}')
-
-  result = [[] * 3 for _ in range(N)]
-
-  for _ in range(3):
-    tmp = [[0] * N for _ in range(N)]
-    for i in range(N):
-      for j in range(N):
-        tmp[j][N - 1 - i] = data[i][j]
-
-    for i in range(N):
-      result[i].append(''.join(map(str, tmp[i])))
-
-    data = tmp
-
-  for i in range(N):
-    print(*result[i])
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+        for (int tc = 1; tc <= T; tc++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            A = new int[N][N];
+            for (int i = 0; i < N; i++) {
+                st = new StringTokenizer(br.readLine());
+                for (int j = 0; j < N; j++) {
+                    A[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+            result = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                result.add(new ArrayList<>());
+            }
+            for (int i = 0; i < 3; i++) {
+                A = turn();
+            }
+            System.out.println("#" + tc);
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < 3; j++) {
+                    System.out.print(result.get(i).get(j) + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}
