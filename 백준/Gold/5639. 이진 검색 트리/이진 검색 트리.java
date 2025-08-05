@@ -1,11 +1,13 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Main {
 	
 	static Map<Integer, int[]> map;
+	static StringBuilder sb;
 	
 	public static void search(int root, int node) {
 
@@ -42,24 +44,27 @@ public class Main {
 		
 		if (children[0] != 0) postOrder(children[0]);
 		if (children[1] != 0) postOrder(children[1]);
-		System.out.println(root);
+		sb.append(root).append("\n");
 	}
 
 	public static void main(String[] args) throws IOException {
-		Scanner sc = new Scanner(System.in);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		map = new HashMap<>();
 		
 		// 루트노드
-		int root = sc.nextInt();
+		int root = Integer.parseInt(br.readLine());
 		map.put(root, new int[2]);
 		
-		while (sc.hasNextInt()) {
-			int node = sc.nextInt();
+		String line;
+		while ((line = br.readLine()) != null) {
+			int node = Integer.parseInt(line);
 			search(root, node);
 		}
 		
+		sb = new StringBuilder();
 		postOrder(root);
+		System.out.print(sb);
 	}
 
 }
