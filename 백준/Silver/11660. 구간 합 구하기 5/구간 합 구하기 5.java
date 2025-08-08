@@ -32,7 +32,7 @@ public class Main {
 			}
 		}
 		
-		
+		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < M; i++) {
 			st = new StringTokenizer(br.readLine());
 			int x1 = Integer.parseInt(st.nextToken());
@@ -40,8 +40,9 @@ public class Main {
 			int x2 = Integer.parseInt(st.nextToken());
 			int y2 = Integer.parseInt(st.nextToken());
 			
-			System.out.println(dp[x2][y2] - dp[x1 - 1][y2] - dp[x2][y1 - 1] + dp[x1 - 1][y1 - 1]);
+			sb.append(dp[x2][y2] - dp[x1 - 1][y2] - dp[x2][y1 - 1] + dp[x1 - 1][y1 - 1]).append("\n");
 		}
+		System.out.println(sb);
 		
 	}
 
