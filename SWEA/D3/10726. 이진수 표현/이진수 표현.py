@@ -1,10 +1,31 @@
-T=int(input())
-for tc in range(1,T+1):
-  N,M=map(int,input().split())
-  res=format(M,"030b")[30-N:]
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-  print(f'#{tc}',end=' ')
-  if len(set(res))==1 and set(res).pop()=='1':
-    print('ON')
-  else:
-    print('OFF')
+public class Solution {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int T = Integer.parseInt(st.nextToken());
+
+		for (int tc = 1; tc <= T; tc++) {
+			st = new StringTokenizer(br.readLine());
+			int N = Integer.parseInt(st.nextToken());
+			int M = Integer.parseInt(st.nextToken());
+			
+			String result = "ON";
+			for (int i = 0; i < N; i++) {
+				if ((M & (1 << i)) == 0) {
+					result = "OFF";
+					break;
+				}
+			}
+			
+			System.out.printf("#%d %s\n", tc, result);
+			
+		}
+	}
+
+}
