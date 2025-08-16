@@ -1,34 +1,72 @@
-T=10
-for tc in range(1, T + 1):
-  # 원본 암호문의 길이
-  N=int(input())
-  # 원본 암호문
-  data=list(map(int, input().split()))
-  # 명령어의 개수
-  M=int(input())
-  # 명령어
-  command=input().split()
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
-  i=0
-  while i<len(command):
-    c = command[i]
-    if c == 'I':
-      x, y = int(command[i + 1]), int(command[i + 2])
-      for j in range(y):
-        data.insert(x + j, command[i + j + 3])
-      i += 3 + y
-    elif c == 'D':
-      x, y = int(command[i + 1]), int(command[i + 2])
-      for _ in range(y):
-        data.remove(data[x])
-      i += 3
-    else:
-      y = int(command[i + 1])
-      for j in range(y):
-        data.append(command[i + j + 2])
-      i += 2 + y
+public class Solution {
 
-  print(f'#{tc}', end=' ')
-  for i in range(10):
-    print(data[i], end=' ')
-  print()
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		
+		int tc = 1;
+		String input;
+		while ((input = br.readLine()) != null) {
+			int N = Integer.parseInt(input);
+			
+			ArrayList<Integer> arr = new ArrayList<Integer>();
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for (int i = 0; i < N; i++) {
+				arr.add(Integer.parseInt(st.nextToken()));
+			}
+			
+			int M = Integer.parseInt(br.readLine());
+			st = new StringTokenizer(br.readLine());
+			for (int i = 0; i < M; i++) {
+				String cmd = st.nextToken();
+				
+				switch (cmd) {
+				case "I":{
+					int x = Integer.parseInt(st.nextToken());
+					int y = Integer.parseInt(st.nextToken());
+					ArrayList<Integer> temp = new ArrayList<Integer>();
+					for (int j = 0; j < y; j++) {
+						temp.add(Integer.parseInt(st.nextToken()));
+					}
+					arr.addAll(x, temp);
+					break;
+				}
+					
+				case "D":{
+					int x = Integer.parseInt(st.nextToken());
+					int y = Integer.parseInt(st.nextToken());
+					for (int j = 0; j < y; j++) {
+						arr.remove(x);
+					}
+					break;
+				}
+				case "A": {
+					int y = Integer.parseInt(st.nextToken());
+					for (int j = 0; j < y; j++) {
+						arr.add(Integer.parseInt(st.nextToken()));
+					}
+					break;
+				}
+				default:
+					break;
+				}
+				
+			}
+			System.out.printf("#%d ", tc);
+			for (int i = 0; i < 10; i++) {
+				System.out.print(arr.get(i) + " ");
+			}
+			System.out.println();
+			
+			tc++;
+		}
+		
+	}
+
+}
