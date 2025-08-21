@@ -1,27 +1,70 @@
-T=10
-dx=[-1,1,0,0]
-dy=[0,0,-1,1]
-def dfs(x,y,d,v):
-  s=[(x,y)]
-  v[x][y]=True
-  while s:
-    px,py=s.pop()
-    if d[px][py]==3:
-      return 1
-    for i in range(4):
-      nx=px+dx[i]
-      ny=py+dy[i]
-      if d[nx][ny]!=1 and not v[nx][ny]:
-        v[nx][ny]=True
-        s.append((nx,ny))
-  return 0
-  
-for _ in range(T):
-  N=int(input())
-  maze=[list(map(int,input())) for _ in range(100)]
-  visited=[[False]*100 for _ in range(100)]
-  for i in range(100):
-    for j in range(100):
-      if maze[i][j]==2:
-        result=dfs(i,j,maze,visited)
-        print(f'#{N} {result}')
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Solution {
+	
+	static int[][] maze;
+	static boolean[][] visited;
+	static int sx, sy, ex, ey;
+	
+	static int[] dx = {0, 0, -1, 1};
+	static int[] dy = {1, -1, 0, 0};
+	
+	static int result;
+	
+	static void dfs(int x, int y) {
+		
+		if (maze[x][y] == 3) {
+			result = 1;
+			return;
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			
+			if (nx < 0 || nx >= 100 || ny < 0 || ny >= 100) continue;
+			
+			if (maze[nx][ny] == 1) continue;
+			
+			if (visited[nx][ny]) continue;
+			
+			visited[nx][ny] = true;
+			dfs(nx, ny);
+		}
+	}
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		for (int tc = 1; tc <= 10; tc++) {
+			br.readLine();
+			
+			maze = new int[100][100];
+			for (int i = 0; i < 100; i++) {
+				String input = br.readLine();
+				for (int j = 0; j < 100; j++) {
+					maze[i][j] = input.charAt(j) - '0';
+					
+					if (maze[i][j] == 2) {
+						sx = i;
+						sy = j;
+					}
+					
+					else if (maze[i][j] == 3) {
+						ex = i;
+						ey = j;
+					}
+				}
+			}
+			
+			visited = new boolean[100][100];
+			result = 0;
+			dfs(sx, sy);
+			
+			System.out.printf("#%d %d\n", tc, result);
+		}
+	}
+
+}
