@@ -8,7 +8,6 @@ public class Main {
     static int N;
     // {내구도, 무게}
     static int[][] eggs;
-    static boolean[] used;
     static int result;
 
     static void dfs(int idx) {
@@ -17,18 +16,19 @@ public class Main {
             for (int i = 0; i < N; i++) {
                 if (eggs[i][0] <= 0) eggCount++;
             }
-//            System.out.println(eggCount);
             result = Math.max(result, eggCount);
             return;
         }
 
+        boolean hit = false;
         for (int i = 0; i < N; i++) {
             if (i == idx) continue;
 
             if (eggs[i][0] <= 0 || eggs[idx][0] <= 0) {
-                dfs(idx + 1);
                 continue;
             }
+
+            hit = true;
             eggs[i][0] -= eggs[idx][1];
             eggs[idx][0] -= eggs[i][1];
 
@@ -37,6 +37,8 @@ public class Main {
             eggs[i][0] += eggs[idx][1];
             eggs[idx][0] += eggs[i][1];
         }
+
+        if (!hit) dfs(idx + 1);
     }
 
     public static void main(String[] args) throws IOException {
@@ -54,8 +56,6 @@ public class Main {
         }
 
         result = 0;
-        used = new boolean[N];
-
         if (N != 1) {
             dfs(0);
 
