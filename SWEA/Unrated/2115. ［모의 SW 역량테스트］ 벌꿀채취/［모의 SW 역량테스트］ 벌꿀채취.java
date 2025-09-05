@@ -64,7 +64,7 @@ public class Solution {
                     for (int k = 0; k < M; k++) {
                         honey[k] = arr[i][j + k];
                     }
-                    potList.add(new HoneyPot(i, j, honey.clone()));
+                    potList.add(new HoneyPot(i, j, honey));
                 }
             }
 
