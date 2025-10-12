@@ -6,7 +6,7 @@ import java.util.*;
 public class Main {
 
     static int N, M, B;
-    static List<Integer> arr;
+    static int[] arr;
     static int minTime, height;
 
     public static void main(String[] args) throws IOException {
@@ -17,19 +17,19 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         B = Integer.parseInt(st.nextToken());
 
-        arr = new ArrayList<>();
+        arr = new int[N * M];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < M; j++) {
                 int cur = Integer.parseInt(st.nextToken());
-                arr.add(cur);
+                arr[i * M + j] = cur;
             }
         }
 
-        arr.sort(Collections.reverseOrder());
-        int mx = arr.get(0);
-        int mn = arr.get(arr.size() - 1);
+        Arrays.sort(arr);
+        int mx = arr[N * M - 1];
+        int mn = arr[0];
         minTime = Integer.MAX_VALUE;
         height = 0;
         for (int i = mx; i >= mn; i--) {
@@ -42,8 +42,8 @@ public class Main {
     static void playMinecraft(int h) {
         int blockCount = B;
         int t = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            int cur = arr.get(i);
+        for (int i = N * M - 1; i >= 0; i--) {
+            int cur = arr[i];
             if (cur > h) {
                 blockCount += cur - h;
                 t += (cur - h) * 2;
