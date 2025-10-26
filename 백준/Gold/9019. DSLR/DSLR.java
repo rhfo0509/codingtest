@@ -15,9 +15,12 @@ public class Main {
             this.cmd = cmd;
         }
     }
+
+    static StringBuilder sb;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+        sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
 
         for (int tc = 1; tc <= T; tc++) {
@@ -27,6 +30,7 @@ public class Main {
 
             bfs(A, B);
         }
+        System.out.println(sb);
     }
 
     static void bfs(int a, int b) {
@@ -39,7 +43,7 @@ public class Main {
         while (!q.isEmpty()) {
             Record r = q.poll();
             if (r.num == b) {
-                System.out.println(r.cmd);
+                sb.append(r.cmd).append("\n");
                 break;
             }
 
@@ -49,21 +53,21 @@ public class Main {
                 q.offer(new Record(num, new StringBuilder(r.cmd).append("L")));
                 visited[num] = true;
             }
-            
+
             // 2. R
             num = (r.num % 10) * 1000 + r.num / 10;
             if (!visited[num]) {
                 q.offer(new Record(num, new StringBuilder(r.cmd).append("R")));
                 visited[num] = true;
             }
-            
+
             // 3. D
             num = (r.num * 2) % 10000;
             if (!visited[num]) {
                 q.offer(new Record(num, new StringBuilder(r.cmd).append("D")));
                 visited[num] = true;
             }
-            
+
             // 4. S
             num = r.num - 1;
             if (r.num == 0) num = 9999;
