@@ -40,8 +40,7 @@ public class Main {
     static void dfs(int depth) {
 		// 4번 타자 자리는 이미 선택된 자리
 		if (depth == 4) {
-			dfs(depth + 1);
-			return;
+			depth++;
 		}
 		
     	if (depth == 10) {
@@ -72,6 +71,7 @@ public class Main {
     		// 현재 주자의 위치 (0 : 1루, 1 : 2루, 2 : 3루)
     		boolean[] pos = new boolean[3];
     		
+            // 중요! 이닝은 아웃카운트가 3이 될때까지 끝나지 않는다.
     		while (outCount < 3) {
     			 
     			int res = innings[i][arr[cur++]];
