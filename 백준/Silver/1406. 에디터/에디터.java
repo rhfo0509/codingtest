@@ -6,47 +6,42 @@ import java.util.Deque;
 import java.util.StringTokenizer;
 
 public class Main {
+    static String str;
+    static int M;
+    static Deque<String> q1 = new ArrayDeque<>();
+    static Deque<String> q2 = new ArrayDeque<>();
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
-        String str = br.readLine();
-
-        Deque<Character> leftStk = new ArrayDeque<>();
-        Deque<Character> rightStk = new ArrayDeque<>();
-
+        str = br.readLine();
         for (int i = 0; i < str.length(); i++) {
-            leftStk.offer(str.charAt(i));
+            q1.push(str.charAt(i) + "");
         }
 
-        int M = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
         for (int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
             String cmd = st.nextToken();
             if (cmd.equals("P")) {
-                char value = st.nextToken().charAt(0);
-                leftStk.offer(value);
-            } else if (cmd.equals("B")) {
-                if (!leftStk.isEmpty()) leftStk.pollLast();
-            } else if (cmd.equals("L")) {
-                if (!leftStk.isEmpty()) {
-                    char value = leftStk.pollLast();
-                    rightStk.offer(value);
-                }
-            } else {
-                if (!rightStk.isEmpty()) {
-                    char value = rightStk.pollLast();
-                    leftStk.offer(value);
-                }
+                q1.push(st.nextToken());
+            }
+            else if (cmd.equals("L") && !q1.isEmpty()) {
+                q2.push(q1.pop());
+            }
+            else if (cmd.equals("D") && !q2.isEmpty()) {
+                q1.push(q2.pop());
+            }
+            else if (cmd.equals("B") && !q1.isEmpty()) {
+                q1.pop();
             }
         }
 
         StringBuilder sb = new StringBuilder();
-        while (!leftStk.isEmpty()) {
-            sb.append(leftStk.poll());
+        while (!q1.isEmpty()) {
+            sb.append(q1.pollLast());
         }
-        while(!rightStk.isEmpty()) {
-            sb.append(rightStk.pollLast());
+        while (!q2.isEmpty()) {
+            sb.append(q2.pop());
         }
         System.out.print(sb);
     }
