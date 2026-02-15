@@ -1,92 +1,74 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-	
-	static class Edge {
-		int to;
-		int weight;
-		
-		public Edge(int to, int weight) {
-			this.to = to;
-			this.weight = weight;
-		}
-	}
-	
-	static class Node implements Comparable<Node> {
-		int to;
-		int dist;
-		
-		public Node(int to, int dist) {
-			this.to = to;
-			this.dist = dist;
-		}
-		
-		@Override
-		public int compareTo(Node o) {
-			return this.dist - o.dist;
-		}
-	}
-	
-	static int N, M;
-	static List<List<Edge>> arr;
-	static int[] distance;
-	static int fromIndex, toIndex;
+    static int N, M, from, to;
+    static class Edge {
+        int to;
+        int weight;
+        Edge(int to, int weight) {
+            this.to = to;
+            this.weight = weight;
+        }
+    }
+    static class Node implements Comparable<Node> {
+        int to;
+        int totalDistance;
+        Node(int to, int totalDistance) {
+            this.to = to;
+            this.totalDistance = totalDistance;
+        }
+        @Override
+        public int compareTo(Node o) {
+            return totalDistance - o.totalDistance;
+        }
+    }
+    static List<List<Edge>> graph;
+    static int[] distance;
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		N = Integer.parseInt(br.readLine());
-		M = Integer.parseInt(br.readLine());
-		
-		arr = new ArrayList<>();
-		for (int i = 0; i <= N; i++) {
-			arr.add(new ArrayList<>());
-		}
-		
-		for (int i = 0; i < M; i++) {
-			st = new StringTokenizer(br.readLine());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			int c = Integer.parseInt(st.nextToken());
-			
-			arr.get(a).add(new Edge(b, c));
-		}
-		
-		distance = new int[N + 1];
-		Arrays.fill(distance, Integer.MAX_VALUE);
-		
-		st = new StringTokenizer(br.readLine());
-		fromIndex = Integer.parseInt(st.nextToken());
-		toIndex = Integer.parseInt(st.nextToken());
-		
-		dijkstra();
-		
-		System.out.println(distance[toIndex]);
-	}
-	
-	private static void dijkstra() {
-		PriorityQueue<Node> pq = new PriorityQueue<>();
-		pq.offer(new Node(fromIndex, 0));
-		distance[fromIndex] = 0;
-		
-		while (!pq.isEmpty()) {
-			Node node = pq.poll();
-			if (node.dist > distance[node.to]) continue;
-			
-			for (Edge edge : arr.get(node.to)) {
-				if (distance[node.to] + edge.weight < distance[edge.to]) {
-					distance[edge.to] = distance[node.to] + edge.weight;
-					pq.offer(new Node(edge.to, distance[edge.to]));
-				}
-			}
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
 
+        graph = new ArrayList<>();
+        for (int i = 0; i <= N; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+            graph.get(u).add(new Edge(v, w));
+        }
+
+        st = new StringTokenizer(br.readLine());
+        from = Integer.parseInt(st.nextToken());
+        to = Integer.parseInt(st.nextToken());
+
+        distance = new int[N + 1];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+
+        distance[from] = 0;
+        dijkstra(from);
+        System.out.print(distance[to]);
+    }
+    static void dijkstra(int from) {
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        pq.offer(new Node(from, 0));
+
+        while (!pq.isEmpty()) {
+            Node cur = pq.poll();
+            if (distance[cur.to] < cur.totalDistance) continue;
+
+            for (Edge next : graph.get(cur.to)) {
+                if (distance[cur.to] + next.weight < distance[next.to]) {
+                    distance[next.to] = distance[cur.to] + next.weight;
+                    pq.offer(new Node(next.to, distance[next.to]));
+                }
+            }
+        }
+    }
 }
