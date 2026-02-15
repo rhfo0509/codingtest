@@ -3,11 +3,10 @@ import java.util.*;
 
 public class Main {
     static int N, cnt;
-    static boolean[] row, col, diag1, diag2;
+    static boolean[] col, diag1, diag2;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        row = new boolean[N];
         col = new boolean[N];
         diag1 = new boolean[2 * N - 1];
         diag2 = new boolean[2 * N - 1];
