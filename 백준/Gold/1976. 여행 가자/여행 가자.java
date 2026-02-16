@@ -24,7 +24,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= N; j++) {
                 int flag = Integer.parseInt(st.nextToken());
-                if (flag == 1) {
+                if (flag == 1 && i < j) {
                     union(i, j);
                 }
             }
@@ -34,7 +34,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) {
             int city = Integer.parseInt(st.nextToken());
-            set.add(parent[city]);
+            set.add(find(city));
         }
 
         if (set.size() == 1) {
