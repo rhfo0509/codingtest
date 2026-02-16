@@ -28,22 +28,22 @@ public class Main {
         for (int i = x; i < x + n; i++) {
             for (int j = y; j < y + n; j++) {
                 set.add(matrix[i][j]);
+                if (set.size() > 1) {
+                    recur(x, y, n / 3);
+                    recur(n / 3 + x, y, n / 3);
+                    recur(2 * n / 3 + x, y, n / 3);
+                    recur(x, n / 3 + y, n / 3);
+                    recur(n / 3 + x, n / 3 + y, n / 3);
+                    recur(2 * n / 3 + x, n / 3 + y, n / 3);
+                    recur(x, 2 * n / 3 + y, n / 3);
+                    recur(n / 3 + x, 2 * n / 3 + y, n / 3);
+                    recur(2 * n / 3 + x, 2 * n / 3 + y, n / 3);
+                    return;
+                }
             }
         }
-        if (set.size() == 1) {
-            if (set.contains(-1)) c1++;
-            else if (set.contains(0)) c2++;
-            else c3++;
-        } else {
-            recur(x, y, n / 3);
-            recur(n / 3 + x, y, n / 3);
-            recur(2 * n / 3 + x, y, n / 3);
-            recur(x, n / 3 + y, n / 3);
-            recur(n / 3 + x, n / 3 + y, n / 3);
-            recur(2 * n / 3 + x, n / 3 + y, n / 3);
-            recur(x, 2 * n / 3 + y, n / 3);
-            recur(n / 3 + x, 2 * n / 3 + y, n / 3);
-            recur(2 * n / 3 + x, 2 * n / 3 + y, n / 3);
-        }
+        if (set.contains(-1)) c1++;
+        else if (set.contains(0)) c2++;
+        else c3++;
     }
 }
