@@ -1,95 +1,59 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
-
-    static int V, E;
-    static int[] parent;
-    static List<Edge> graph;
-    static int count, result;
-
+    static int V, E, cnt, res;
+    static List<List<Edge>> graph;
     static class Edge implements Comparable<Edge> {
-        int from;
         int to;
-        int cost;
-
-        Edge(int from, int to, int cost) {
-            this.from = from;
+        int weight;
+        Edge(int to, int weight) {
             this.to = to;
-            this.cost = cost;
+            this.weight = weight;
         }
-
         @Override
         public int compareTo(Edge o) {
-            return this.cost - o.cost;
+            return weight - o.weight;
         }
     }
-
+    static PriorityQueue<Edge> pq;
+    static boolean[] visited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         V = Integer.parseInt(st.nextToken());
         E = Integer.parseInt(st.nextToken());
-        parent = new int[V + 1];
-        for (int i = 1; i <= V; i++) {
-            parent[i] = i;
-        }
-
         graph = new ArrayList<>();
+        for (int i = 0; i <= V; i++) {
+            graph.add(new ArrayList<>());
+        }
         for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
-
             int A = Integer.parseInt(st.nextToken());
             int B = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
-
-            graph.add(new Edge(A, B, C));
+            graph.get(A).add(new Edge(B, C));
+            graph.get(B).add(new Edge(A, C));
         }
 
-        // 가중치가 작은 순서로 정렬
-        Collections.sort(graph);
+        // Prim
+        pq = new PriorityQueue<>();
+        visited = new boolean[V + 1];
+        pq.offer(new Edge(1, 0));
+        cnt = res = 0;
 
-        count = 0;
-        result = 0;
-        for (int i = 0; i < E; i++) {
-            Edge cur = graph.get(i);
-
-            int a = cur.from;
-            int b = cur.to;
-            int c = cur.cost;
-
-            int parentA = find(a);
-            int parentB = find(b);
-
-            if (parentA != parentB) {
-                union(parentA, parentB);
-                count += 1;
-                result += c;
-            }
-
-            if (count == V - 1) {
-                break;
+        while (!pq.isEmpty()) {
+            Edge cur = pq.poll();
+            if (visited[cur.to]) continue;
+            visited[cur.to] = true;
+            res += cur.weight;
+            if (++cnt == V) break;
+            for (Edge next : graph.get(cur.to)) {
+                if (!visited[next.to]) {
+                    pq.offer(new Edge(next.to, next.weight));
+                }
             }
         }
-
-        System.out.print(result);
-    }
-
-    static int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
-    }
-
-    static void union(int a, int b) {
-        if (a < b) {
-            parent[b] = a;
-        } else {
-            parent[a] = b;
-        }
+        System.out.print(res);
     }
 }
