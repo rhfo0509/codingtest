@@ -2,9 +2,8 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static int N, c1, c2, c3;
+    static int N, c1, c2, c3, cur;
     static int[][] matrix;
-    static HashSet<Integer> set;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -24,11 +23,10 @@ public class Main {
         System.out.println(c3);
     }
     static void recur(int x, int y, int n) {
-        set = new HashSet<>();
+        cur = matrix[x][y];
         for (int i = x; i < x + n; i++) {
             for (int j = y; j < y + n; j++) {
-                set.add(matrix[i][j]);
-                if (set.size() > 1) {
+                if (cur != matrix[i][j]) {
                     recur(x, y, n / 3);
                     recur(n / 3 + x, y, n / 3);
                     recur(2 * n / 3 + x, y, n / 3);
@@ -40,10 +38,11 @@ public class Main {
                     recur(2 * n / 3 + x, 2 * n / 3 + y, n / 3);
                     return;
                 }
+                cur = matrix[i][j];
             }
         }
-        if (set.contains(-1)) c1++;
-        else if (set.contains(0)) c2++;
+        if (cur == -1) c1++;
+        else if (cur == 0) c2++;
         else c3++;
     }
 }
