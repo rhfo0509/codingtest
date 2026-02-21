@@ -4,6 +4,7 @@ import java.util.*;
 public class Main {
     static int N, M, K;
     static long[] tree, arr;
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -28,10 +29,10 @@ public class Main {
                 add(b, delta);
             } else {
                 int c = Integer.parseInt(st.nextToken());
-                System.out.println(sum(c) - sum(b - 1));
+                sb.append(sum(c) - sum(b - 1)).append("\n");
             }
         }
-
+        System.out.print(sb);
     }
     static void add(int i, long cur) {
         while (i <= N) {
