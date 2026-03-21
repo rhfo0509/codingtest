@@ -14,7 +14,6 @@ public class Main {
             this.z = z;
         }
     }
-    static HashMap<Integer, List<Shark>> map;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -23,7 +22,6 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         grid = new Shark[R + 1][C + 1];
         tempGrid = new Shark[R + 1][C + 1];
-        map = new HashMap<>();
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int r = Integer.parseInt(st.nextToken());
@@ -32,13 +30,6 @@ public class Main {
             int d = Integer.parseInt(st.nextToken());
             int z = Integer.parseInt(st.nextToken());
             grid[r][c] = new Shark(s, d, z);
-
-            int idx = (r - 1) * R + (c - 1);
-            Shark shark = new Shark(s, d, z);
-            List<Shark> arr = new ArrayList<>();
-            arr.add(shark);
-            map.put(idx, arr);
-
         }
         for (int c = 1; c <= C; c++) {
             // 낚시왕 turn
