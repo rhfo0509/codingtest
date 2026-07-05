@@ -11,7 +11,6 @@ class Solution {
                 arr[i] = (remain / speeds[i]) + 1;
             }
         }
-        Deque<Integer> stack = new ArrayDeque<>();
         List<Integer> li = new ArrayList<>();
         int cur = arr[0];
         int cnt = 1;
