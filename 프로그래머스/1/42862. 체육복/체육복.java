@@ -3,6 +3,7 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         Arrays.sort(lost);
         Arrays.sort(reserve);
+        
         // 체육복이 있는 학생
         boolean[] person = new boolean[n + 1];
         Arrays.fill(person, true);
@@ -19,6 +20,7 @@ class Solution {
             }
         }
         for (int l : lost) {
+            if (person[l]) continue;
             if (l - 1 > 0 && reservePerson[l - 1]) {
                 if (person[l - 1]) {
                     person[l] = true;
